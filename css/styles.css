@@ -1,16 +1,19 @@
 /* Global Styles */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #c1c5c8d6;
     color: #333;
 }
 
 header {
     text-align: center;
+    background: linear-gradient(135deg, #4c50af, #81c784), url('images/background.webp');
+    background-size: cover;
+    background-blend-mode: overlay;
     padding: 20px;
-    background: linear-gradient(135deg, #4caf50, #81c784);
     color: white;
+    animation: fadeIn 1s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -28,6 +31,16 @@ header h1 {
 
 header p {
     font-size: 16px;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Floating Menu */
@@ -148,6 +161,9 @@ header p {
     border-radius: 10px;
     background-color: #f8f8f8;
 }
+.carousel-slide img:hover {
+    filter: brightness(1.2);
+}
 
 .carousel-btn {
     position: absolute;
@@ -221,6 +237,7 @@ header p {
     max-width: 90%;
     max-height: 90%;
     border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -234,6 +251,78 @@ header p {
     z-index: 1001;
 }
 
+/* Bagian Tentang Saya */
+#about {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+#about h2 {
+    font-size: 28px;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+/* Kontainer horizontal */
+.about-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0;
+    scrollbar-width: thin; /* Untuk browser modern */
+    scrollbar-color: #4caf50 transparent;
+}
+
+.about-row::-webkit-scrollbar {
+    height: 8px; /* Tinggi scrollbar */
+}
+
+.about-row::-webkit-scrollbar-thumb {
+    background-color: #4caf50;
+    border-radius: 10px;
+}
+
+.about-row::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Kotak Profil */
+.about-box {
+    flex: 0 0 300px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.about-box img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #4caf50;
+    object-fit: cover;
+}
+
+.about-box h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.about-box p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
 /* Footer */
 footer {
     text-align: center;
@@ -242,4 +331,16 @@ footer {
     color: white;
     font-size: 14px;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        .about-row {
+        flex-wrap: nowrap;
+    }
+
+    .about-box {
+        flex: 0 0 250px; /* Ukuran lebih kecil untuk layar kecil */
+    }
 }
