@@ -1,0 +1,130 @@
+/* Umum */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://images.pexels.com/photos/1234567/pexels-photo-1234567.jpeg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+header, main, footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+header {
+    text-align: center;
+}
+header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+header h1 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+header p {
+    font-size: 16px;
+    color: #ccc;
+}
+
+/* Tombol Media Sosial */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s, background-color 0.3s;
+    width: 150px;
+}
+.social-button.whatsapp { background-color: #25D366; }
+.social-button.facebook { background-color: #1877F2; }
+.social-button.instagram { background-color: #E4405F; }
+.social-button:hover { transform: scale(1.05); }
+
+/* Carousel */
+.carousel {
+    position: relative;
+    max-width: 100%; /* Agar tidak melebihi lebar layar */
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Gambar dimulai dengan tidak terlihat */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+    opacity: 1; /* Gambar yang aktif terlihat */
+}
+
+.carousel-slide img {
+    width: 100%; /* Gambar memenuhi lebar slide */
+    height: auto; /* Menjaga proporsi gambar */
+    object-fit: cover; /* Gambar ditampilkan dengan proporsi yang baik */
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+    transition: background-color 0.3s ease-in-out;
+}
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsif */
+@media only screen and (max-width: 600px) {
+    .carousel {
+        max-width: 100%;
+    }
+
+    .social-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
