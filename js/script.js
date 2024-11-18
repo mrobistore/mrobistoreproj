@@ -1,39 +1,100 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Floating Menu
+    const menuToggle = document.querySelector(".menu-toggle");
+    const menuItems = document.querySelector(".menu-items");
+
+    // Toggle Floating Menu
+    menuToggle.addEventListener("click", () => {
+        menuItems.classList.toggle("hidden");
+        menuToggle.querySelector("i").classList.toggle("fa-bars");
+        menuToggle.querySelector("i").classList.toggle("fa-times");
+    });
+
+    // Hide Floating Menu on Outside Click
+    document.addEventListener("click", (event) => {
+        if (!menuToggle.contains(event.target) && !menuItems.contains(event.target)) {
+            menuItems.classList.add("hidden");
+            menuToggle.querySelector("i").classList.add("fa-bars");
+            menuToggle.querySelector("i").classList.remove("fa-times");
+        }
+    });
+
+    // Hide Floating Menu When Clicking a Menu Item
+    menuItems.addEventListener("click", () => {
+        menuItems.classList.add("hidden");
+        menuToggle.querySelector("i").classList.add("fa-bars");
+        menuToggle.querySelector("i").classList.remove("fa-times");
+    });
+
+    // Carousel
     const slides = document.querySelectorAll(".carousel-slide");
+    const carouselContainer = document.querySelector(".carousel-container");
     const prevBtn = document.querySelector(".carousel-btn.prev");
     const nextBtn = document.querySelector(".carousel-btn.next");
+    const indicators = document.querySelectorAll(".indicator");
 
     let currentSlide = 0;
 
-    // Fungsi untuk menampilkan slide
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove("active");
-            if (i === index) {
-                slide.classList.add("active");
-            }
+    // Update Slide Position
+    function updateSlidePosition() {
+        const offset = -currentSlide * 100;
+        carouselContainer.style.transform = `translateX(${offset}%)`;
+        updateIndicators(currentSlide);
+    }
+
+    // Update Active Indicators
+    function updateIndicators(index) {
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle("active", i === index);
         });
     }
 
-    // Fungsi untuk pindah ke slide berikutnya
+    // Go to Next Slide
     function nextSlide() {
         currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
+        updateSlidePosition();
     }
 
-    // Fungsi untuk pindah ke slide sebelumnya
+    // Go to Previous Slide
     function prevSlide() {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
+        updateSlidePosition();
     }
 
-    // Event Listener untuk tombol prev dan next
+    // Add Event Listeners for Carousel
     nextBtn.addEventListener("click", nextSlide);
     prevBtn.addEventListener("click", prevSlide);
 
-    // Slider otomatis (3 detik)
-    setInterval(nextSlide, 3000);
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+            currentSlide = index;
+            updateSlidePosition();
+        });
+    });
 
-    // Menampilkan slide pertama secara default
-    showSlide(currentSlide);
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.querySelector(".lightbox-image");
+    const closeLightbox = document.querySelector(".close-lightbox");
+    const galleryImages = document.querySelectorAll(".carousel-slide img");
+
+    // Open Lightbox
+    galleryImages.forEach((image) => {
+        image.addEventListener("click", () => {
+            lightboxImage.src = image.src;
+            lightbox.classList.add("visible");
+        });
+    });
+
+    // Close Lightbox
+    closeLightbox.addEventListener("click", () => {
+        lightbox.classList.remove("visible");
+    });
+
+    // Close Lightbox on Outside Click
+    lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+            lightbox.classList.remove("visible");
+        }
+    });
 });
