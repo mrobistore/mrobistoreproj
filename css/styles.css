@@ -75,21 +75,19 @@ header p {
 
 .carousel-slide {
     min-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; /* Gambar dimulai dengan tidak terlihat */
+    opacity: 0; /* Nonaktifkan slide yang tidak aktif */
+    display: none; /* Sembunyikan slide yang tidak aktif */
     transition: opacity 0.5s ease-in-out;
 }
-
 .carousel-slide.active {
-    opacity: 1; /* Gambar yang aktif terlihat */
+    opacity: 1; /* Tampilkan slide aktif */
+    display: block; /* Pastikan hanya slide aktif yang terlihat */
 }
 
 .carousel-slide img {
-    width: 100%; /* Gambar memenuhi lebar slide */
-    height: auto; /* Menjaga proporsi gambar */
-    object-fit: cover; /* Gambar ditampilkan dengan proporsi yang baik */
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Hindari gambar terpotong */
 }
 
 .carousel-btn {
