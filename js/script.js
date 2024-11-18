@@ -97,4 +97,80 @@ document.addEventListener("DOMContentLoaded", () => {
             lightbox.classList.remove("visible");
         }
     });
+
+    // Zoom Feature for About Section
+    const zoomableItems = document.querySelectorAll("[data-zoomable]");
+    const zoomOverlay = document.createElement("div");
+    zoomOverlay.classList.add("zoom-overlay");
+    document.body.appendChild(zoomOverlay);
+
+    const zoomContent = document.createElement("div");
+    zoomContent.classList.add("zoom-content");
+    zoomOverlay.appendChild(zoomContent);
+
+    // Function for Zoom-in when item is clicked
+    zoomableItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            zoomContent.innerHTML = item.innerHTML; // Copy the content of the clicked item
+            zoomOverlay.classList.add("visible"); // Show the overlay
+        });
+    });
+
+    // Close zoom when the overlay is clicked
+    zoomOverlay.addEventListener("click", () => {
+        zoomOverlay.classList.remove("visible"); // Hide the overlay
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const floatingMenu = document.querySelector(".floating-menu");
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Event mousedown untuk memulai dragging
+    floatingMenu.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - floatingMenu.getBoundingClientRect().left;
+        offsetY = e.clientY - floatingMenu.getBoundingClientRect().top;
+        floatingMenu.classList.add("dragging");
+    });
+
+    // Event mousemove untuk menggerakkan menu
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            floatingMenu.style.left = `${e.clientX - offsetX}px`;
+            floatingMenu.style.top = `${e.clientY - offsetY}px`;
+            floatingMenu.style.right = "auto"; // Hilangkan posisi kanan
+            floatingMenu.style.bottom = "auto"; // Hilangkan posisi bawah
+        }
+    });
+
+    // Event mouseup untuk menghentikan dragging
+    document.addEventListener("mouseup", () => {
+        if (isDragging) {
+            isDragging = false;
+            floatingMenu.classList.remove("dragging");
+        }
+    });
+});
+document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        const menuWidth = floatingMenu.offsetWidth;
+        const menuHeight = floatingMenu.offsetHeight;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        let newX = e.clientX - offsetX;
+        let newY = e.clientY - offsetY;
+
+        // Cegah keluar dari batas layar
+        if (newX < 0) newX = 0;
+        if (newY < 0) newY = 0;
+        if (newX + menuWidth > viewportWidth) newX = viewportWidth - menuWidth;
+        if (newY + menuHeight > viewportHeight) newY = viewportHeight - menuHeight;
+
+        floatingMenu.style.left = `${newX}px`;
+        floatingMenu.style.top = `${newY}px`;
+        floatingMenu.style.right = "auto";
+        floatingMenu.style.bottom = "auto";
+    }
 });
